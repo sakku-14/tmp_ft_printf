@@ -502,8 +502,11 @@ int pf_switch(t_flag **flag)
 
 int ft_error_free_flag(t_flag **flag)
 {
-	free(flag);
-	flag = NULL;
+	if (flag)
+	{
+		free(*flag);
+		*flag = NULL;
+	}
 	return (-1);
 }
 
