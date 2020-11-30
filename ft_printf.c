@@ -267,7 +267,7 @@ int pf_check_usdigit(unsigned int num)
 	int dret;
 
 	dret = 0;
-	while (num > 1)
+	while (num >= 1)
 	{
 		num /= 10;
 		dret++;
@@ -319,7 +319,7 @@ int pf_check_xdigit(unsigned int num)
 	int count;
 
 	count = 0;
-	while (num > 1)
+	while (num >= 1)
 	{
 		num /= 16;
 		count++;
@@ -412,7 +412,7 @@ int pf_check_adddigit(uintptr_t address)
 	int count;
 
 	count = 0;
-	while (address > 1)
+	while (address >= 1)
 	{
 		address /= 16;
 		count++;
@@ -445,7 +445,7 @@ void pf_print_add(t_flag **flag, int digit, uintptr_t address)
 		ft_putadnbr(address, flag);
 	}
 }
-
+//要確認！！！！！
 void pf_print_address(t_flag **flag)
 {
 	uintptr_t address;
@@ -453,10 +453,11 @@ void pf_print_address(t_flag **flag)
 
 	address = (uintptr_t)va_arg((*flag)->ap, void *);
 	digit = pf_check_adddigit(address);
+//	printf("\ntest->%d\n", digit);
 	if ((*flag)->minField < (*flag)->vaDigit)
 		(*flag)->minField = (*flag)->vaDigit;
 	if ((*flag)->vaDigit < digit)
-		(*flag)->vaDigit = digit + 1;
+		(*flag)->vaDigit = digit;// + 1;
 	if ((*flag)->minField > digit)
 		pf_print_add(flag, digit, address);
 	else
@@ -499,13 +500,22 @@ int pf_switch(t_flag **flag)
 	return (1);
 }
 
+int ft_error_free_flag(t_flag **flag)
+{
+	free(flag);
+	flag = NULL;
+	return (-1);
+}
+
 int ft_printf(const char *fmt, ...)
 {
 	t_flag *flag;
+
 	if (!(flag = malloc(sizeof(t_flag))))
 		return (-1);
-
 	flag->ret = 0;
+	if (!fmt)
+		return (ft_error_free_flag(&flag));
 	va_start(flag->ap, fmt);
 	flag->fmt = fmt;
 	while (*flag->fmt)
@@ -521,26 +531,139 @@ int ft_printf(const char *fmt, ...)
 
 int main()
 {
-//	int count1 = 0, count2 = 0;
-	int count = 0;
-	unsigned int X = 123;
-//	int num = 123;
-//	char c = 'x';
-//	char *str = "aa";
-//	count1 = ft_printf("1234\n");
-//	count2 = printf("1234\n");
-	count = ft_printf("ft_printf->[%5.4X]", X);
-//	count = printf("printf---->[%5.4X]\n", X);
-//	count = ft_printf("ft_printf->[%20.0p]\n", str);
-//	count = printf("printf---->[%20.0p]\n", str);
-//	count = ft_printf("ft_printf->[%-7.5d]\n", num);
-//	count = ft_printf("ft_printf->[%08.5u]\n", u);
-//	count = printf("printf---->[%08.5u]\n", u);
-//	count = ft_printf("[%-06.4s]\n", str);
-//	count = ft_printf("[%%]\n");
-//	count = ft_printf("%-5.t3.5s\n", "aaaaa");
-//	count = ft_printf("%%", 5);
-//	count = ft_printf("----ft_printf----\ntext:hello\nu:%u\nc:%c\ns:%s\nd:%d\ni:%i\nx:%x\nX:%X\np:%p\n", 4294967295, '3', "aaa", 100, 999, 555, 555, str);
-//	printf("\nft_printf:%d\nprintf:%d\n", count1, count2);
-	printf("\n%d\n", count);
+	int d = -777;
+	int i = 666;
+	int count= 0;
+	unsigned int u = 555;
+	unsigned int x = 444;
+	unsigned int X = 333;
+	char *str = "aaa";
+	char c = 'a';
+
+//---------error-----------
+
+	count = ft_printf(NULL);
+	ft_printf("%d\n", count);
+
+//---------%d-----------
+/*
+	count = printf("[%d]", d);
+	printf("-->%d\n", count);
+	count = printf("[%d]", d);
+	printf("-->%d\n", count);
+	count = ft_printf("[%2.10d]", d);
+	printf("-->%d\n", count);
+	count = printf("[%2.10d]", d);
+	printf("-->%d\n", count);
+	count = ft_printf("[%10.1d]", d);
+	printf("-->%d\n", count);
+	count = printf("[%10.1d]", d);
+	printf("-->%d\n", count);
+*/
+//-----------%p-------------
+/*
+	count = ft_printf("[%20.15p]", str);
+	printf("-->%d\n", count);
+	count = printf("[%20.15p]", str);
+	printf("-->%d\n", count);
+	count = ft_printf("[%2.15p]", str);
+	printf("-->%d\n", count);
+	count = printf("[%2.15p]", str);
+	printf("-->%d\n", count);
+	count = ft_printf("[%20.3p]", str);
+	printf("-->%d\n", count);
+	count = printf("[%20.3p]", str);
+	printf("-->%d\n", count);
+*/
+
+//-----------%u-------------
+/*
+	count = ft_printf("[%10.5d]", u);
+	printf("-->%u\n", count);
+	count = printf("[%10.5d]", u);
+	printf("-->%u\n", count);
+	count = ft_printf("[%2.10d]", u);
+	printf("-->%u\n", count);
+	count = printf("[%2.10d]", u);
+	printf("-->%u\n", count);
+	count = ft_printf("[%10.1d]", u);
+	printf("-->%u\n", count);
+	count = printf("[%10.1d]", u);
+	printf("-->%u\n", count);
+*/
+//-----------%x-------------
+/*
+	count = ft_printf("[%10.5x]", x);
+	printf("-->%d\n", count);
+	count = printf("[%10.5x]", x);
+	printf("-->%d\n", count);
+	count = ft_printf("[%2.10x]", x);
+	printf("-->%d\n", count);
+	count = printf("[%2.10x]", x);
+	printf("-->%d\n", count);
+	count = ft_printf("[%10.1x]", x);
+	printf("-->%d\n", count);
+	count = printf("[%10.1x]", x);
+	printf("-->%d\n", count);
+*/
+//-----------%X-------------
+/*
+	count = ft_printf("[%10.5X]", X);
+	printf("-->%d\n", count);
+	count = printf("[%10.5X]", X);
+	printf("-->%d\n", count);
+	count = ft_printf("[%2.10X]", X);
+	printf("-->%d\n", count);
+	count = printf("[%2.10X]", X);
+	printf("-->%d\n", count);
+	count = ft_printf("[%10.1X]", X);
+	printf("-->%d\n", count);
+	count = printf("[%10.1X]", X);
+	printf("-->%d\n", count);
+*/
+//-----------%s-------------
+/*
+	count = ft_printf("[%20.15s]", str);
+	printf("-->%d\n", count);
+	count = printf("[%20.15s]", str);
+	printf("-->%d\n", count);
+	count = ft_printf("[%2.15s]", str);
+	printf("-->%d\n", count);
+	count = printf("[%2.15s]", str);
+	printf("-->%d\n", count);
+	count = ft_printf("[%20.3s]", str);
+	printf("-->%d\n", count);
+	count = printf("[%20.3s]", str);
+	printf("-->%d\n", count);
+*/
+//-----------%c-------------
+/*
+	count = ft_printf("[%20.15c]", c);
+	printf("-->%d\n", count);
+	count = printf("[%20.15c]", c);
+	printf("-->%d\n", count);
+	count = ft_printf("[%2.15c]", c);
+	printf("-->%d\n", count);
+	count = printf("[%2.15c]", c);
+	printf("-->%d\n", count);
+	count = ft_printf("[%20.3c]", c);
+	printf("-->%d\n", count);
+	count = printf("[%20.3c]", c);
+	printf("-->%d\n", count);
+*/
+//-----------%%-------------
+/*
+	count = ft_printf("[%20.15%]");
+	printf("-->%d\n", count);
+	count = printf("[%20.15%]");
+	printf("-->%d\n", count);
+	count = ft_printf("[%2.15%]");
+	printf("-->%d\n", count);
+	count = printf("[%2.15%]");
+	printf("-->%d\n", count);
+	count = ft_printf("[%20.3%]");
+	printf("-->%d\n", count);
+	count = printf("[%20.3%]");
+	printf("-->%d\n", count);
+	*/
 }
