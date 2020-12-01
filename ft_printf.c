@@ -58,6 +58,8 @@ void pf_pack_flag(t_flag **flag)
 			(*flag)->negative = true;
 		else if (*(*flag)->fmt == '0')
 			(*flag)->zero = true;
+		else if (*(*flag)->fmt == '*')
+
 		else if (*(*flag)->fmt >= '1' && *(*flag)->fmt <= '9')
 			if (!(pf_pack_minf(flag)))
 				break ;
@@ -510,9 +512,19 @@ int ft_error_free_flag(t_flag **flag)
 	return (-1);
 }
 
+void ft_last_free_flag(t_flag **flag)
+{
+	if (flag)
+	{
+		free(*flag);
+		*flag = NULL;
+	}
+}
+
 int ft_printf(const char *fmt, ...)
 {
 	t_flag *flag;
+	int ret;
 
 	if (!(flag = malloc(sizeof(t_flag))))
 		return (-1);
@@ -522,14 +534,14 @@ int ft_printf(const char *fmt, ...)
 	va_start(flag->ap, fmt);
 	flag->fmt = fmt;
 	while (*flag->fmt)
-	{
 		if (*flag->fmt != '%')
 			flag->ret += write(1, flag->fmt++, 1);
 		else if (!(pf_switch(&flag)))
 				return (-1);
-	}
 	va_end(flag->ap);
-	return (flag->ret);
+	ret = flag->ret;
+	ft_last_free_flag(&flag);
+	return (ret);
 }
 
 int main()
