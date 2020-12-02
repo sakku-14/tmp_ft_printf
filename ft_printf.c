@@ -583,8 +583,16 @@ int main()
 	char *str = "aaa";
 	char c = 'a';
 
-//---------asta------------
+//---------\0--------------
+/*
+	count = ft_printf("%s", "\0");
+	printf("\n%d", count);
+	count = printf("%s", "\0");
+	printf("\n%d", count);
+*/
 
+//---------asta------------
+/*
 	count = ft_printf("[%10.5d]", i);
 	count = ft_printf("[%*.*d]", 10, 5, i);
 	printf("\n%d\n", count);
@@ -606,6 +614,13 @@ int main()
 	count = printf("[%*.*d]", 10, -5, i);
 	printf("\n%d\n", count);
 
+	count = ft_printf("[%10.5s]", str);
+	count = ft_printf("[%*.*s]", 10, 5, str);
+	printf("\n%d\n", count);
+	count = printf("[%10.5s]", str);
+	count = printf("[%*.*s]", 10, 5, str);
+	printf("\n%d\n", count);
+*/
 //---------error-----------
 /*
 	count = ft_printf(NULL);
