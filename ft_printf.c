@@ -585,11 +585,25 @@ int main()
 
 //---------asta------------
 
+	count = ft_printf("[%10.5d]", i);
+	count = ft_printf("[%*.*d]", 10, 5, i);
+	printf("\n%d\n", count);
+	count = printf("[%10.5d]", i);
+	count = printf("[%*.*d]", 10, 5, i);
+	printf("\n%d\n", count);
+
 	count = ft_printf("[%-10.5d]", i);
 	count = ft_printf("[%*.*d]", -10, 5, i);
 	printf("\n%d\n", count);
 	count = printf("[%-10.5d]", i);
 	count = printf("[%*.*d]", -10, 5, i);
+	printf("\n%d\n", count);
+
+	count = ft_printf("[%10.-5d]", i);
+	count = ft_printf("[%*.*d]", 10, -5, i);
+	printf("\n%d\n", count);
+	count = printf("[%10.-5d]", i);
+	count = printf("[%*.*d]", 10, -5, i);
 	printf("\n%d\n", count);
 
 //---------error-----------
