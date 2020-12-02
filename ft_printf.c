@@ -475,7 +475,7 @@ void pf_print_add(t_flag **flag, int digit, uintptr_t address)
 		ft_putadnbr(address, flag);
 	}
 }
-//要確認！！！！！
+
 void pf_print_address(t_flag **flag)
 {
 	uintptr_t address;
@@ -483,7 +483,6 @@ void pf_print_address(t_flag **flag)
 
 	address = (uintptr_t)va_arg((*flag)->ap, void *);
 	digit = pf_check_adddigit(address);
-//	printf("\ntest->%d\n", digit);
 	if ((*flag)->minField < (*flag)->vaDigit)
 		(*flag)->minField = (*flag)->vaDigit;
 	if ((*flag)->vaDigit < digit)
@@ -584,15 +583,14 @@ int main()
 	char c = 'a';
 
 //---------\0--------------
-/*
+	printf("\n-------------null-------------\n");
 	count = ft_printf("%s", "\0");
 	printf("\n%d", count);
 	count = printf("%s", "\0");
 	printf("\n%d", count);
-*/
 
 //---------asta------------
-/*
+	printf("\n-------------asta-------------\n");
 	count = ft_printf("[%10.5d]", i);
 	count = ft_printf("[%*.*d]", 10, 5, i);
 	printf("\n%d\n", count);
@@ -620,14 +618,10 @@ int main()
 	count = printf("[%10.5s]", str);
 	count = printf("[%*.*s]", 10, 5, str);
 	printf("\n%d\n", count);
-*/
 //---------error-----------
-/*
 	count = ft_printf(NULL);
 	ft_printf("%d\n", count);
-*/
 //---------%d-----------
-/*
 	count = printf("[%d]", d);
 	printf("-->%d\n", count);
 	count = printf("[%d]", d);
@@ -640,9 +634,8 @@ int main()
 	printf("-->%d\n", count);
 	count = printf("[%10.1d]", d);
 	printf("-->%d\n", count);
-*/
 //-----------%p-------------
-/*
+	printf("\n-------------p-------------\n");
 	count = ft_printf("[%20.15p]", str);
 	printf("-->%d\n", count);
 	count = printf("[%20.15p]", str);
@@ -655,10 +648,9 @@ int main()
 	printf("-->%d\n", count);
 	count = printf("[%20.3p]", str);
 	printf("-->%d\n", count);
-*/
 
 //-----------%u-------------
-/*
+	printf("\n-------------u-------------\n");
 	count = ft_printf("[%10.5d]", u);
 	printf("-->%u\n", count);
 	count = printf("[%10.5d]", u);
@@ -671,9 +663,8 @@ int main()
 	printf("-->%u\n", count);
 	count = printf("[%10.1d]", u);
 	printf("-->%u\n", count);
-*/
 //-----------%x-------------
-/*
+	printf("\n-------------x-------------\n");
 	count = ft_printf("[%10.5x]", x);
 	printf("-->%d\n", count);
 	count = printf("[%10.5x]", x);
@@ -686,9 +677,8 @@ int main()
 	printf("-->%d\n", count);
 	count = printf("[%10.1x]", x);
 	printf("-->%d\n", count);
-*/
 //-----------%X-------------
-/*
+	printf("\n-------------X-------------\n");
 	count = ft_printf("[%10.5X]", X);
 	printf("-->%d\n", count);
 	count = printf("[%10.5X]", X);
@@ -701,9 +691,8 @@ int main()
 	printf("-->%d\n", count);
 	count = printf("[%10.1X]", X);
 	printf("-->%d\n", count);
-*/
 //-----------%s-------------
-/*
+	printf("\n-------------s-------------\n");
 	count = ft_printf("[%20.15s]", str);
 	printf("-->%d\n", count);
 	count = printf("[%20.15s]", str);
@@ -716,9 +705,8 @@ int main()
 	printf("-->%d\n", count);
 	count = printf("[%20.3s]", str);
 	printf("-->%d\n", count);
-*/
 //-----------%c-------------
-/*
+	printf("\n-------------c-------------\n");
 	count = ft_printf("[%20.15c]", c);
 	printf("-->%d\n", count);
 	count = printf("[%20.15c]", c);
@@ -731,9 +719,8 @@ int main()
 	printf("-->%d\n", count);
 	count = printf("[%20.3c]", c);
 	printf("-->%d\n", count);
-*/
 //-----------%%-------------
-/*
+	printf("\n-------------percent-------------\n");
 	count = ft_printf("[%20.15%]");
 	printf("-->%d\n", count);
 	count = printf("[%20.15%]");
@@ -746,5 +733,4 @@ int main()
 	printf("-->%d\n", count);
 	count = printf("[%20.3%]");
 	printf("-->%d\n", count);
-	*/
 }
